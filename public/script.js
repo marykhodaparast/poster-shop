@@ -41,6 +41,9 @@ new Vue({
 				this.cart.splice(i,1);
 			}
 
+		},
+		onSubmit:function(){
+			console.log('search');
 		}
 	},
 	filters: {
