@@ -7,7 +7,8 @@ new Vue({
 			{ title: "product 2", id: 2, price: 9.99 },
 			{ title: "product 3", id: 3, price: 9.99 }
 		],
-		cart: []
+		cart: [],
+		search:""
 	},
 	methods: {
 		addToCart: function(product) {
