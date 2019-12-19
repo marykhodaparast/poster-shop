@@ -44,7 +44,11 @@ new Vue({
 
 		},
 		onSubmit:function(){
-			console.log('search');
+			var path = "/search?q=".concat(this.search);
+			this.$http.get(path)
+			.then(function(response){
+          console.log(response);
+			})
 		}
 	},
 	filters: {
