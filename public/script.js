@@ -4,7 +4,7 @@ new Vue({
 		total: 0,
 		products: [],
 		cart: [],
-		search: "cat",
+		search: "",
 		lastSearch:"",
 		loading:false
 	},
@@ -58,7 +58,7 @@ new Vue({
 			return "$".concat(price.toFixed(2));
 		}
 	},
-	created:function(){
-		this.onSubmit();
-	}
+	// created:function(){
+	// 	this.onSubmit();
+	// }
 });
