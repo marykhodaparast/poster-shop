@@ -42,7 +42,10 @@
 			</div>
 			<div class="main container">
 				<div class="products">
-					<div class="search-results">
+					<div v-if="loading">
+						Loading...
+					</div>
+					<div class="search-results" v-else>
 						Found {{ products.length }} results for search term <i>{{ lastSearch }}</i>
 					</div>
 					<div v-for="product in products" class="product" v-bind:key="product.id">
