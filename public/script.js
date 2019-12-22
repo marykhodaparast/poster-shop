@@ -1,4 +1,5 @@
 var LOAD_NUM = 4;
+var watcher;
 new Vue({
 	el: "#app",
 	data: {
@@ -6,9 +7,9 @@ new Vue({
 		products: [],
 		cart: [],
 		search: "",
-		lastSearch:"",
-		loading:false,
-		results:[]
+		lastSearch: "",
+		loading: false,
+		results: []
 	},
 	methods: {
 		addToCart: function(product) {
@@ -46,14 +47,16 @@ new Vue({
 			this.loading = true;
 			var path = "/search?q=".concat(this.search);
 			this.$http.get(path).then(function(response) {
-			//	setTimeout(function(){
-				  this.results = response.body;
-					this.products = response.body.slice(0,LOAD_NUM);
-					this.lastSearch = this.search;
-					this.loading = false;
+				//	setTimeout(function(){
+				this.results = response.body;
+				this.products = response.body.slice(0, LOAD_NUM);
+				this.lastSearch = this.search;
+				this.loading = false;
 				//}.bind(this),3000);
-			
 			});
+		},
+		appendResults: function() {
+			console.log("append results");
 		}
 	},
 	filters: {
@@ -63,10 +66,17 @@ new Vue({
 	},
 	// created:function(){
 	// 	this.onSubmit();
-	// }
+	// },
+	updated: function() {
+		var sensor = document.querySelector("#product-list-bottom");
+		watcher = scrollMonitor.create(sensor);
+		watcher.enterViewport(this.appendResults);
+	},
+	beforeUpdate() {
+		if(watcher){
+			watcher.destroy();
+			watcher = null;
+		}
+		
+	}
 });
-var sensor = document.querySelector('#product-list-bottom')
-var watcher = scrollMonitor.create(sensor);
-watcher.enterViewport(function(){
-	console.log('sensor has entered the viewport');
-})
