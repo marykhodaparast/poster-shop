@@ -51,12 +51,16 @@ new Vue({
 				this.results = response.body;
 				this.products = response.body.slice(0, LOAD_NUM);
 				this.lastSearch = this.search;
+				this.appendResults();
 				this.loading = false;
 				//}.bind(this),3000);
 			});
 		},
 		appendResults: function() {
-			console.log("append results");
+			if(this.products.length<this.results.length){
+				var toAppend = this.results.slice(this.products.length,LOAD_NUM + this.products.length);
+				this.products = this.products.concat(toAppend);
+			}
 		}
 	},
 	filters: {
@@ -72,7 +76,7 @@ new Vue({
 		watcher = scrollMonitor.create(sensor);
 		watcher.enterViewport(this.appendResults);
 	},
-	beforeUpdate() {
+	beforeUpdate:function() {
 		if(watcher){
 			watcher.destroy();
 			watcher = null;
