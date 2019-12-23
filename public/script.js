@@ -49,7 +49,7 @@ new Vue({
 			this.$http.get(path).then(function(response) {
 				//	setTimeout(function(){
 				this.results = response.body;
-				this.products = response.body.slice(0, LOAD_NUM);
+				// this.products = response.body.slice(0, LOAD_NUM);
 				this.lastSearch = this.search;
 				this.appendResults();
 				this.loading = false;
@@ -57,8 +57,11 @@ new Vue({
 			});
 		},
 		appendResults: function() {
-			if(this.products.length<this.results.length){
-				var toAppend = this.results.slice(this.products.length,LOAD_NUM + this.products.length);
+			if (this.products.length < this.results.length) {
+				var toAppend = this.results.slice(
+					this.products.length,
+					LOAD_NUM + this.products.length
+				);
 				this.products = this.products.concat(toAppend);
 			}
 		}
@@ -76,11 +79,10 @@ new Vue({
 		watcher = scrollMonitor.create(sensor);
 		watcher.enterViewport(this.appendResults);
 	},
-	beforeUpdate:function() {
-		if(watcher){
+	beforeUpdate: function() {
+		if (watcher) {
 			watcher.destroy();
 			watcher = null;
 		}
-		
 	}
 });
