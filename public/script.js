@@ -44,6 +44,7 @@ new Vue({
 		},
 		onSubmit: function() {
 			this.products = [];
+			this.results = [];
 			this.loading = true;
 			var path = "/search?q=".concat(this.search);
 			this.$http.get(path).then(function(response) {
